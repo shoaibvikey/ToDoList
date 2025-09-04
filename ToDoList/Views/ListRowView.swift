@@ -24,6 +24,6 @@ struct ListRowView: View {
     }
 }
 #Preview {
-    var item1: ItemModel = ItemModel(text: "Test line", isDone: true)
+    let item1: ItemModel = ItemModel(text: "Test line", isDone: true)
     ListRowView(item: item1 )
 }
