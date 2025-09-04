@@ -9,17 +9,17 @@ import SwiftUI
 
 struct ListView: View {
     
-    @State var items: [String] = [
-        "This is first item title.",
-        "This is second item title.",
-        "This is third item title.",
-        "This is fourth item title."
+    @State var items: [ItemModel] = [
+        ItemModel(text: "This is first item title.", isDone: false),
+        ItemModel(text: "This is second item title.", isDone: true),
+        ItemModel(text: "This is third item title.", isDone: false),
+        ItemModel(text: "This is fourth item title.", isDone: true),
     ]
     
     var body: some View {
         List{
-            ForEach(items, id: \.self) { item in
-                ListRowView(title: item)
+            ForEach(items) { item in
+                ListRowView(item: item)
             }
             
         }
