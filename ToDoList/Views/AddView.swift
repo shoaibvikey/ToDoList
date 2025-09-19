@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct AddView: View {
-    
+    @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var listViewModel : ListViewModel
     @State var taskText: String = ""
     
     var body: some View {
@@ -20,9 +21,10 @@ struct AddView: View {
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(10)
                 
-                Button {
-                    
-                } label: {
+                
+                
+                
+                Button(action: saveButtonPressed , label: {
                     Text("Add Task".uppercased())
                         .font(.headline)
                         .foregroundColor(.white)
@@ -31,7 +33,7 @@ struct AddView: View {
                         .frame(maxWidth: .infinity)
                         .background(Color.blue)
                         .cornerRadius(10)
-                }
+                })
 
             }
             .padding()
@@ -39,11 +41,17 @@ struct AddView: View {
         }
         .navigationTitle(Text("Add new task 🎯"))
     }
+    func saveButtonPressed(){
+        listViewModel.addItem(tittle: taskText)
+        presentationMode.wrappedValue.dismiss()
+    }
+    
 }
 
 #Preview {
     NavigationView{
         AddView()
     }
+    .environmentObject(ListViewModel())
     
 }

@@ -9,20 +9,16 @@ import SwiftUI
 
 struct ListView: View {
     
-    @State var items: [ItemModel] = [
-        ItemModel(text: "This is first item title.", isDone: false),
-        ItemModel(text: "This is second item title.", isDone: true),
-        ItemModel(text: "This is third item title.", isDone: false),
-        ItemModel(text: "This is fourth item title.", isDone: true),
-    ]
-    
+    @EnvironmentObject var listViewModel : ListViewModel
     var body: some View {
         List{
-            ForEach(items) { item in
+            ForEach(listViewModel.items) { item in
                 ListRowView(item: item)
             }
-            .onDelete(perform: deleteItem)
-            .onMove(perform: moveItem)
+            .onDelete(perform: listViewModel.deleteItem)
+            .onMove(perform: listViewModel.moveItem)
+            
+            
             
         }
         .listStyle(PlainListStyle())
@@ -34,13 +30,7 @@ struct ListView: View {
         )
     }
     
-    func deleteItem ( indexSet : IndexSet) {
-        items.remove(atOffsets: indexSet)
-    }
     
-    func moveItem (from: IndexSet, to: Int) {
-        items.move(fromOffsets: from, toOffset: to)
-    }
         
 }
 
@@ -48,6 +38,7 @@ struct ListView: View {
     NavigationView {
         ListView()
     }
+    .environmentObject(ListViewModel())
 }
 
 
